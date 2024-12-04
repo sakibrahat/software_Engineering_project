@@ -90,7 +90,7 @@
         {% csrf_token %}
         {% for pet in pets %}
         <div class="pet-item" "{% if not pet.available %}opacity: 0.5;{% endif %}">
-            <strong>{{ pet.name }}</strong> - {{ pet.species }} - ${{ pet.price }}
+            <strong>{{ pet.name }}</strong> - {{ pet.species }} - ${{ pet.price }} 
             {% if pet.available %}
                 <span class="available">Available</span>
                 <input type="radio" name="pet_id" value="{{ pet.id }}">
@@ -108,13 +108,14 @@
                 {% endif %}
             </div>
         </div>
-
+        
         {% endfor %}
         <label for="pet_image">Upload Image:</label>
         <input type="file" name="pet_image" id="pet_image">
         <button type="submit">Purchase</button>
     </form>
-     <script>
+
+    <script>
         document.getElementById("purchaseForm").addEventListener("submit", function(event) {
             event.preventDefault(); // Prevent form submission
             alert("Your payment is done");
