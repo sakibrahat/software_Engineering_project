@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Pets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pet-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .sold {
+            color: red;
+        }
+
+        .available {
+            color: green;
+        }
+
+        @media only screen and (max-width: 600px) {
+            form {
+                padding: 10px;
+            }
+        }
+        /* Add this CSS */
+.pet-image-container {
+    max-width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.pet-image {
+    width: 40%;
+    height: auto;
+    display: block;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Available Pets</h1>
+    <form id="purchaseForm" method="post" action="{% url 'buy_pet' %}">
+        {% csrf_token %}
+        {% for pet in pets %}
+        <div class="pet-item" "{% if not pet.available %}opacity: 0.5;{% endif %}">
+            <strong>{{ pet.name }}</strong> - {{ pet.species }} - ${{ pet.price }}
+            {% if pet.available %}
+                <span class="available">Available</span>
+                <input type="radio" name="pet_id" value="{{ pet.id }}">
+            {% else %}
+                <span class="sold">Sold</span>
+            {% endif %}
+            <br>
+            <strong>Breed:</strong> {{ pet.breed }}<br>
+            <strong>Age:</strong> {{ pet.age }}<br>
+            <strong>Price:</strong> ${{ pet.price }}<br>
+            <strong>Description:</strong> {{ pet.description }}<br>
+            <div class="pet-image-container">
+                {% if pet.image %}
+                    <img src="{{ pet.image.url }}" alt="{{ pet.name }}" class="pet-image">
+                {% endif %}
+            </div>
+        </div>
+
+        {% endfor %}
+        <label for="pet_image">Upload Image:</label>
+        <input type="file" name="pet_image" id="pet_image">
+        <button type="submit">Purchase</button>
+    </form>
+     <script>
+        document.getElementById("purchaseForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            alert("Your payment is done");
+            this.submit(); // Submit the form
+        });
+    </script>
+</body>
+</html>
