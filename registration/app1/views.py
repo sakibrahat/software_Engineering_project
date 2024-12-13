@@ -79,7 +79,6 @@ def logoutpage(request):
     return redirect('login')
 
 
-<<<<<<< HEAD
 def userpage(request):
     return render(request, 'user.html')
 
@@ -188,9 +187,6 @@ def payment(request):
         # Process payment logic goes here
         return render(request, 'payment.html')
     return redirect('buy_pet')
-=======
-
->>>>>>> 2e621ba07e60672f0d031985a8ec113f1367263f
 
 def admin_add_pet(request):
     if request.method == 'POST':
@@ -212,7 +208,3 @@ def admin_remove_pet(request, pet_id):
     pet = PetAdd.objects.get(id=pet_id)
     pet.delete()
     return redirect('admin_panel')
-<<<<<<< HEAD
-=======
-
->>>>>>> 2e621ba07e60672f0d031985a8ec113f1367263f
